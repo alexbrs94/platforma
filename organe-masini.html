@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organe de Mașini - Teme de Studiu</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .course-header {
+            background: linear-gradient(to right, var(--dark), var(--primary));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .course-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .course-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn svg {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2c3e50;
+        }
+        
+        .course-modules {
+            margin-bottom: 2rem;
+        }
+        
+        .module-heading {
+            font-size: 1.5rem;
+            color: var(--dark);
+            background-color: var(--light);
+            padding: 1rem;
+            margin: 2rem 0 1rem;
+            border-radius: 5px;
+            border-left: 5px solid var(--primary);
+        }
+        
+        .module-description {
+            margin-bottom: 1.5rem;
+        }
+        
+        .topic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .topic-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .topic-number {
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.5rem 1rem;
+        }
+        
+        .topic-number.second-module {
+            background-color: var(--accent);
+        }
+        
+        .topic-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .topic-content h3 {
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .topic-content p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .topic-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-actions {
+            margin-top: auto;
+        }
+        
+        .topic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            width: 100%;
+        }
+        
+        .topic-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-btn.view-btn {
+            background-color: var(--primary);
+        }
+        
+        .topic-btn.second-module {
+            background-color: var(--accent);
+        }
+        
+        .topic-btn.second-module:hover {
+            background-color: #8e44ad;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .topic-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="organe-masini.html">Organe de Mașini</a></li>
+                    <li><a href="asamblari-mecanice.html">Asamblări Mecanice</a></li>
+                    <li><a href="lacatuserie-generala.html">Lăcătușerie Generală</a></li>
+                    <li><a href="masurari-tehnice.html">Măsurări Tehnice</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Course Header -->
+    <section class="course-header">
+        <div class="container">
+            <h1 class="course-title">Organe de Mașini</h1>
+            <p class="course-description">Studiază principalele organe de mașini, funcționalitatea și proiectarea lor optimă pentru diverse aplicații industriale.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <a href="index.html#courses" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Înapoi la lista de cursuri
+        </a>
+        
+        <div class="course-modules">
+            <!-- Modulul I: Organe de Mașini -->
+            <h2 class="module-heading">I. Organe de Mașini</h2>
+            <p class="module-description">În acest modul veți studia principalele componente mecanice de bază utilizate în construcția mașinilor și utilajelor.</p>
+            
+            <div class="topic-list">
+                <!-- Tema 1: Arbori și Osii -->
+                <div class="topic-card">
+                    <div class="topic-number">1</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/arbori-osii.jpg" alt="Arbori și Osii" class="topic-img" loading="lazy">
+                        <h3>Arbori și Osii</h3>
+                        <p>Studiază principiile constructive și funcționale ale arborilor și osiilor, elementele componente, materialele utilizate și domeniile de aplicare.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/arbori-osii.pdf" class="topic-btn view-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 2: Fusuri -->
+                <div class="topic-card">
+                    <div class="topic-number">2</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/fusuri.jpg" alt="Fusuri" class="topic-img" loading="lazy">
+                        <h3>Fusuri</h3>
+                        <p>Descoperă tipurile de fusuri, principiile de dimensionare, materialele utilizate și tehnologiile de producție și montaj.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/fusuri.pdf" class="topic-btn view-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 3: Lagăre -->
+                <div class="topic-card">
+                    <div class="topic-number">3</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/lagare.jpg" alt="Lagăre" class="topic-img" loading="lazy">
+                        <h3>Lagăre</h3>
+                        <p>Învață despre lagăre cu alunecare și lagăre cu rostogolire, clasificare, domenii de utilizare, avantaje și dezavantaje.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/lagare.pdf" class="topic-btn view-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 4: Cuplaje -->
+                <div class="topic-card">
+                    <div class="topic-number">4</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/cuplaje.jpg" alt="Cuplaje" class="topic-img" loading="lazy">
+                        <h3>Cuplaje</h3>
+                        <p>Studiază diferitele tipuri de cuplaje, caracteristicile lor, domeniile de utilizare și criteriile de alegere.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/cuplaje.pdf" class="topic-btn view-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 5: Ghidaje -->
+                <div class="topic-card">
+                    <div class="topic-number">5</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/ghidaje.jpg" alt="Ghidaje" class="topic-img" loading="lazy">
+                        <h3>Ghidaje</h3>
+                        <p>Descoperă tipurile de ghidaje, principiile de funcționare, metodele de realizare și aplicațiile specifice în mașini și utilaje.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/ghidaje.pdf" class="topic-btn view-btn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modulul II: Transmisii Mecanice -->
+            <h2 class="module-heading">II. Transmisii Mecanice</h2>
+            <p class="module-description">În acest modul veți studia principalele tipuri de transmisii mecanice utilizate pentru transferul mișcării și puterii între axe.</p>
+            
+            <div class="topic-list">
+                <!-- Tema 1: Transmisii prin Curele -->
+                <div class="topic-card">
+                    <div class="topic-number second-module">1</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/transmisii-curele.png" alt="Transmisii prin Curele" class="topic-img" loading="lazy">
+                        <h3>Transmisii prin Curele</h3>
+                        <p>Studiază transmisiile prin curele, tipurile de curele, caracteristicile, dimensionarea și aplicațiile specifice.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/transmisii-curele.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 2: Transmisii prin Cabluri -->
+                <div class="topic-card">
+                    <div class="topic-number second-module">2</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/transmisii-cabluri.jpg" alt="Transmisii prin Cabluri" class="topic-img" loading="lazy">
+                        <h3>Transmisii prin Cabluri</h3>
+                        <p>Descoperă transmisiile prin cabluri, structura cablurilor, caracteristicile, calculul de rezistență și aplicațiile.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/transmisii-cabluri.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 3: Transmisii prin Lanțuri -->
+                <div class="topic-card">
+                    <div class="topic-number second-module">3</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/transmisii-lanturi.jpg" alt="Transmisii prin Lanțuri" class="topic-img" loading="lazy">
+                        <h3>Transmisii prin Lanțuri</h3>
+                        <p>Învață despre transmisiile prin lanțuri, tipurile de lanțuri, caracteristicile, calculul și aplicațiile industriale.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/transmisii-lanturi.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 4: Transmisii prin Roți de Fricțiune -->
+                <div class="topic-card">
+                    <div class="topic-number second-module">4</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/transmisii-frictiune.jpg" alt="Transmisii prin Roți de Fricțiune" class="topic-img" loading="lazy">
+                        <h3>Transmisii prin Roți de Fricțiune</h3>
+                        <p>Studiază transmisiile prin roți de fricțiune, caracteristicile, calculul, avantajele, dezavantajele și aplicațiile.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/transmisii-frictiune.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 5: Transmisii prin Roți Dințate -->
+                <div class="topic-card">
+                    <div class="topic-number second-module">5</div>
+                    <div class="topic-content">
+                        <img src="images/organe-masini/transmisii-roti-dintate.jpg" alt="Transmisii prin Roți Dințate" class="topic-img" loading="lazy">
+                        <h3>Transmisii prin Roți Dințate</h3>
+                        <p>Descoperă transmisiile prin roți dințate, angrenajele, geometria roților dințate, calculul și aplicațiile specifice.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/organe-masini/transmisii-roti-dintate.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right: 5px;">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+</body>
+</html>

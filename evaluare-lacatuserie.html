@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Evaluare - Lăcătușerie Generală</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            
+            /* Culori specifice pentru lăcătușerie */
+            --lacatuserie-primary: #065f46;
+            --lacatuserie-secondary: #059669;
+            --lacatuserie-accent: #34d399;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .test-header {
+            background: linear-gradient(to right, var(--lacatuserie-primary), var(--lacatuserie-secondary));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .test-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,50 L80,50 M50,20 L50,80" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .test-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .test-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn svg {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+        }
+        
+        .test-info {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .test-info h3 {
+            color: var(--lacatuserie-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--lacatuserie-secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-info ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .question h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .options {
+            margin-left: 1.5rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .option input[type="radio"] {
+            margin-top: 0.3rem;
+            margin-right: 0.8rem;
+        }
+        
+        .option label {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--lacatuserie-secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--lacatuserie-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .results {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .results h2 {
+            color: var(--lacatuserie-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .score {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--lacatuserie-secondary);
+            display: block;
+            margin: 0.5rem 0;
+        }
+        
+        .feedback {
+            margin-bottom: 2rem;
+        }
+        
+        .feedback h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--lacatuserie-secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .feedback-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feedback-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feedback-correct {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .feedback-incorrect {
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feedback-explanation {
+            background-color: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            display: inline-block;
+            padding: 10px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .retry-btn {
+            background-color: var(--lacatuserie-secondary);
+        }
+        
+        .retry-btn:hover {
+            background-color: var(--lacatuserie-primary);
+        }
+        
+        .return-btn {
+            background-color: var(--dark);
+        }
+        
+        .return-btn:hover {
+            background-color: #2c3e50;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .test-title {
+                font-size: 2rem;
+            }
+            
+            .option {
+                align-items: flex-start;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="organe-masini.html">Organe de Mașini</a></li>
+                    <li><a href="asamblari-mecanice.html">Asamblări Mecanice</a></li>
+                    <li><a href="lacatuserie-generala.html">Lăcătușerie Generală</a></li>
+                    <li><a href="masurari-tehnice.html">Măsurări Tehnice</a></li>
+                    <li><a href="evaluare.html">Evaluare</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Test Header -->
+    <section class="test-header">
+        <div class="container">
+            <h1 class="test-title">Evaluare: Lăcătușerie Generală</h1>
+            <p class="test-description">Testează-ți cunoștințele dobândite despre operații de lăcătușerie, tehnologii și procedee de prelucrare.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <a href="evaluare.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Înapoi la lista de evaluări
+        </a>
+        
+        <!-- Test Info -->
+        <div class="test-info">
+            <h3>Informații despre test</h3>
+            <p><strong>Durata:</strong> 20 minute</p>
+            <p><strong>Număr de întrebări:</strong> 9</p>
+            <p><strong>Punctaj maxim:</strong> 90 puncte (10 puncte/întrebare)</p>
+            <p><strong>Punctaj de trecere:</strong> 50 puncte (55%)</p>
+            <p><strong>Instrucțiuni:</strong></p>
+            <ul>
+                <li>Citește cu atenție fiecare întrebare înainte de a răspunde</li>
+                <li>Alege un singur răspuns pentru fiecare întrebare</li>
+                <li>După completarea tuturor întrebărilor, apasă butonul "Finalizează testul"</li>
+                <li>Rezultatele și răspunsurile corecte vor fi afișate după finalizarea testului</li>
+            </ul>
+        </div>
+        
+        <!-- Test Form -->
+        <form id="test-form" class="test-form">
+            <!-- Întrebarea 1 -->
+            <div class="question" id="q1">
+                <h3>1. Care este scopul principal al operației de îndreptare în lăcătușerie?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">Creșterea durității materialului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">Eliminarea deformațiilor (îndoituri, ondulații, cute) din materialele metalice</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">Modificarea compoziției chimice a materialului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">Creșterea rezistenței la coroziune a materialului</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 2 -->
+            <div class="question" id="q2">
+                <h3>2. Ce instrumente sunt utilizate pentru operația de trasare în lăcătușerie?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">Dălți, ciocane și pile</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">Clești, șurubelnițe și chei</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">Ac de trasat, compas, punctator, rigle, echere</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">Burghie, tarozi și filiere</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 3 -->
+            <div class="question" id="q3">
+                <h3>3. Care dintre următoarele metode de debitare NU este o metodă de debitare prin așchiere?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">Debitarea cu ferăstrăul manual pentru metale</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">Debitarea cu foarfeca pentru tablă</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">Debitarea cu ferăstrăul mecanic cu bandă</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">Debitarea cu dalta și ciocanul</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 4 -->
+            <div class="question" id="q4">
+                <h3>4. Ce trebuie calculat înainte de a efectua operația de îndoire a unei table?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">Densitatea materialului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">Rezistența la tracțiune a materialului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">Dezvoltata (lungimea inițială necesară)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">Coeficientul de frecare a materialului</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 5 -->
+            <div class="question" id="q5">
+                <h3>5. Care dintre următoarele aspecte este esențial în tehnologia corectă de pilire?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">Aplicarea presiunii atât la cursa de dus, cât și la cea de întors</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">Utilizarea unei singure pile pentru toate operațiile</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">Aplicarea presiunii doar la cursa de dus (înainte) și ținerea corectă a pilei</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">Fixarea piesei în menghină la o înălțime cât mai joasă</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 6 -->
+            <div class="question" id="q6">
+                <h3>6. Pentru găurirea tablelor subțiri din metal, ce măsură de precauție este esențială?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">Utilizarea unui burghiu cu diametru foarte mare</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">Fixarea corespunzătoare a tablei pentru a preveni deformarea și blocarea burghiului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6c" name="q6" value="c">
+                        <label for="q6c">Utilizarea unei turații foarte mici a mașinii de găurit</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6d" name="q6" value="d">
+                        <label for="q6d">Omiterea operației de punctare</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 7 -->
+            <div class="question" id="q7">
+                <h3>7. Care este diferența principală dintre filetul interior și cel exterior?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">Filetul interior se realizează pe suprafața interioară a unei găuri (ex. piuliță), iar cel exterior pe suprafața exterioară a unei piese cilindrice (ex. șurub)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">Filetul interior este întotdeauna metric, iar cel exterior este întotdeauna în inci</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7c" name="q7" value="c">
+                        <label for="q7c">Filetul interior este folosit doar în aplicații de precizie, iar cel exterior doar în aplicații industriale grele</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7d" name="q7" value="d">
+                        <label for="q7d">Filetul interior se realizează prin strunjire, iar cel exterior prin frezare</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 8 -->
+            <div class="question" id="q8">
+                <h3>8. Ce rol are lichidul de răcire-ungere în operația de găurire?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">Doar pentru curățarea suprafeței de lucru</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">Răcirea sculei, reducerea frecării, evacuarea șpanului și creșterea preciziei găurii</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8c" name="q8" value="c">
+                        <label for="q8c">Pentru a crește viteza de rotație a burghiului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8d" name="q8" value="d">
+                        <label for="q8d">Pentru a proteja operatorul de accidente</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 9 -->
+            <div class="question" id="q9">
+                <h3>9. Care dintre următoarele factori influențează calitatea unei operații de îndreptare?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">Tipul de material, gradul de deformare, metoda utilizată (la rece sau la cald) și experiența operatorului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">Doar greutatea ciocanului utilizat</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">Exclusiv temperatura de lucru</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9d" name="q9" value="d">
+                        <label for="q9d">Doar marca oțelului utilizat</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Finalizează testul</button>
+        </form>
+        
+        <!-- Results (initially hidden) -->
+        <div id="results" class="results">
+            <h2>Rezultatele testului</h2>
+            
+            <div class="score">
+                Scorul tău:
+                <span id="score-value" class="score-value">0/90</span>
+                <span id="pass-status"></span>
+            </div>
+            
+            <div class="feedback">
+                <h3>Răspunsuri și explicații:</h3>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">1. Care este scopul principal al operației de îndreptare în lăcătușerie?</div>
+                    <div id="q1-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Eliminarea deformațiilor (îndoituri, ondulații, cute) din materialele metalice</div>
+                    <div class="feedback-explanation">Operația de îndreptare în lăcătușerie are ca scop principal readucerea materialelor metalice la forma plană sau la forma inițială prin eliminarea deformațiilor precum îndoituri, ondulații sau cute. Aceasta este o operație de pregătire importantă înainte de alte prelucrări, deoarece asigură precizia dimensională în etapele ulterioare.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">2. Ce instrumente sunt utilizate pentru operația de trasare în lăcătușerie?</div>
+                    <div id="q2-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Ac de trasat, compas, punctator, rigle, echere</div>
+                    <div class="feedback-explanation">Pentru operația de trasare în lăcătușerie, când se marchează pe suprafața semifabricatului contururile și punctele care delimitează zonele ce urmează a fi prelucrate, se utilizează instrumente specifice precum: acul de trasat pentru trasarea liniilor, compasul pentru trasarea cercurilor și arcelor, punctatorul pentru marcarea centrelor de găurire, și instrumentele de măsură și control precum riglele și echerele pentru asigurarea preciziei.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">3. Care dintre următoarele metode de debitare NU este o metodă de debitare prin așchiere?</div>
+                    <div id="q3-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Debitarea cu foarfeca pentru tablă</div>
+                    <div class="feedback-explanation">Debitarea cu foarfeca pentru tablă este o metodă de debitare prin forfecare, nu prin așchiere. În timpul acestui proces, materialul este separat prin acțiunea unor forțe de forfecare aplicate de cele două tăișuri ale foarfecii, fără a produce așchii. În schimb, debitarea cu ferăstrăul manual, cu ferăstrăul mecanic sau cu dalta și ciocanul sunt toate metode de debitare prin așchiere, deoarece în timpul procesului se îndepărtează material sub formă de așchii.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">4. Ce trebuie calculat înainte de a efectua operația de îndoire a unei table?</div>
+                    <div id="q4-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Dezvoltata (lungimea inițială necesară)</div>
+                    <div class="feedback-explanation">Înainte de a efectua operația de îndoire a unei table, este esențial să se calculeze dezvoltata, adică lungimea inițială necesară a materialului pentru a obține dimensiunea finală dorită după îndoire. Acest calcul ia în considerare raza de îndoire, grosimea materialului și poziția fibrei neutre, și este crucial pentru a evita situațiile în care piesa finală ar fi prea scurtă sau prea lungă după îndoire.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">5. Care dintre următoarele aspecte este esențial în tehnologia corectă de pilire?</div>
+                    <div id="q5-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Aplicarea presiunii doar la cursa de dus (înainte) și ținerea corectă a pilei</div>
+                    <div class="feedback-explanation">În tehnologia corectă de pilire, presiunea se aplică doar la cursa de dus (înainte), în timpul căreia dantura pilei îndepărtează materialul. La cursa de întors, pila trebuie ridicată ușor sau deplasată fără presiune, pentru a evita uzura prematură a pilei și deteriorarea suprafeței prelucrate. De asemenea, ținerea corectă a pilei (o mână pe mâner, cealaltă pe vârful pilei) asigură controlul și precizia operației.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">6. Pentru găurirea tablelor subțiri din metal, ce măsură de precauție este esențială?</div>
+                    <div id="q6-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Fixarea corespunzătoare a tablei pentru a preveni deformarea și blocarea burghiului</div>
+                    <div class="feedback-explanation">La găurirea tablelor subțiri din metal, fixarea corespunzătoare a acestora este esențială pentru a preveni deformarea tablei și blocarea burghiului. Tabla trebuie fixată pe un suport solid (lemn, plastic), fără spații libere sub ea, și strânsă bine pentru a evita vibrațiile. Folosirea unui burghiu ascuțit corespunzător, a unei viteze adecvate și exercitarea unei presiuni moderate și uniforme sunt, de asemenea, factori importanți pentru realizarea corectă a operației.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">7. Care este diferența principală dintre filetul interior și cel exterior?</div>
+                    <div id="q7-status"></div>
+                    <div class="feedback-correct">Răspuns corect: A. Filetul interior se realizează pe suprafața interioară a unei găuri (ex. piuliță), iar cel exterior pe suprafața exterioară a unei piese cilindrice (ex. șurub)</div>
+                    <div class="feedback-explanation">Diferența principală dintre filetul interior și cel exterior constă în localizarea filetului: filetul interior se realizează pe suprafața interioară a unei găuri (cum ar fi într-o piuliță sau un orificiu filetat), în timp ce filetul exterior se realizează pe suprafața exterioară a unei piese cilindrice (cum ar fi un șurub sau un bolt). Filetul interior se realizează cu tarozi, iar cel exterior cu filiere sau prin alte metode precum strunjirea.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">8. Ce rol are lichidul de răcire-ungere în operația de găurire?</div>
+                    <div id="q8-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Răcirea sculei, reducerea frecării, evacuarea șpanului și creșterea preciziei găurii</div>
+                    <div class="feedback-explanation">Lichidul de răcire-ungere în operația de găurire are mai multe roluri importante: răcește burghiul și piesa pentru a preveni supraîncălzirea care poate afecta duritatea sculei și poate deforma piesa; reduce frecarea dintre burghiu și material, prelungind astfel durata de viață a sculei; ajută la evacuarea șpanului din gaură, prevenind blocarea burghiului; și contribuie la creșterea preciziei dimensionale și a calității suprafeței găurii realizate.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">9. Care dintre următoarele factori influențează calitatea unei operații de îndreptare?</div>
+                    <div id="q9-status"></div>
+                    <div class="feedback-correct">Răspuns corect: A. Tipul de material, gradul de deformare, metoda utilizată (la rece sau la cald) și experiența operatorului</div>
+                    <div class="feedback-explanation">Calitatea unei operații de îndreptare este influențată de mai mulți factori: tipul materialului (unele materiale sunt mai ușor de îndreptat decât altele); gradul de deformare (deformările severe pot fi mai dificil de corectat și pot necesita încălzire); metoda utilizată (îndreptarea la rece sau la cald, în funcție de material și deformare); și, nu în ultimul rând, experiența și îndemânarea operatorului în aplicarea corectă și uniformă a forțelor necesare pentru îndreptare.</div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button id="retry-btn" class="action-btn retry-btn">Încercă din nou</button>
+                <a href="evaluare.html" class="action-btn return-btn">Înapoi la evaluări</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testForm = document.getElementById('test-form');
+            const resultsDiv = document.getElementById('results');
+            const scoreValue = document.getElementById('score-value');
+            const passStatus = document.getElementById('pass-status');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            // Correct answers
+            const correctAnswers = {
+                'q1': 'b',
+                'q2': 'c',
+                'q3': 'b',
+                'q4': 'c',
+                'q5': 'c',
+                'q6': 'b',
+                'q7': 'a',
+                'q8': 'b',
+                'q9': 'a'
+            };
+            
+            // Form submission
+            testForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Calculate score
+                let score = 0;
+                for (let question in correctAnswers) {
+                    const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                    const statusDiv = document.getElementById(`${question}-status`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === correctAnswers[question]) {
+                            score += 10;
+                            statusDiv.innerHTML = '<div class="feedback-correct">Ai răspuns corect!</div>';
+                        } else {
+                            statusDiv.innerHTML = `<div class="feedback-incorrect">Ai răspuns greșit. Ai selectat opțiunea ${selectedOption.value.toUpperCase()}.</div>`;
+                        }
+                    } else {
+                        statusDiv.innerHTML = '<div class="feedback-incorrect">Nu ai răspuns la această întrebare.</div>';
+                    }
+                }
+                
+                // Update score and status
+                scoreValue.textContent = `${score}/90`;
+                if (score >= 50) {
+                    passStatus.textContent = '(Felicitări! Ai trecut testul)';
+                    passStatus.style.color = 'var(--secondary)';
+                } else {
+                    passStatus.textContent = '(Ai picat testul. Încearcă din nou după o recapitulare)';
+                    passStatus.style.color = 'var(--danger)';
+                }
+                
+                // Show results
+                testForm.style.display = 'none';
+                resultsDiv.style.display = 'block';
+                
+                // Scroll to top of results
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Retry button
+            retryBtn.addEventListener('click', function() {
+                // Reset form
+                testForm.reset();
+                
+                // Hide results and show form
+                resultsDiv.style.display = 'none';
+                testForm.style.display = 'block';
+                
+                // Scroll to top of form
+                testForm.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Evaluare - Măsurări Tehnice</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            
+            /* Culori specifice pentru măsurări tehnice */
+            --masurari-primary: #854d0e;
+            --masurari-secondary: #ca8a04;
+            --masurari-accent: #facc15;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .test-header {
+            background: linear-gradient(to right, var(--masurari-primary), var(--masurari-secondary));
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .test-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,50 L80,50 M50,20 L50,80" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .test-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .test-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn svg {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+        }
+        
+        .test-info {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .test-info h3 {
+            color: var(--masurari-primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--masurari-secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .test-info p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .test-info ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .test-form {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .question {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .question:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .question h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .options {
+            margin-left: 1.5rem;
+        }
+        
+        .option {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 0.8rem;
+        }
+        
+        .option input[type="radio"] {
+            margin-top: 0.3rem;
+            margin-right: 0.8rem;
+        }
+        
+        .option label {
+            flex: 1;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--masurari-secondary);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--masurari-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .results {
+            display: none;
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .results h2 {
+            color: var(--masurari-primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .score {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--masurari-secondary);
+            display: block;
+            margin: 0.5rem 0;
+        }
+        
+        .feedback {
+            margin-bottom: 2rem;
+        }
+        
+        .feedback h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--masurari-secondary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .feedback-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feedback-question {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feedback-correct {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        
+        .feedback-incorrect {
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+        }
+        
+        .feedback-explanation {
+            background-color: #f8f9fa;
+            padding: 0.8rem;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            display: inline-block;
+            padding: 10px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .retry-btn {
+            background-color: var(--masurari-secondary);
+        }
+        
+        .retry-btn:hover {
+            background-color: var(--masurari-primary);
+        }
+        
+        .return-btn {
+            background-color: var(--dark);
+        }
+        
+        .return-btn:hover {
+            background-color: #2c3e50;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .test-title {
+                font-size: 2rem;
+            }
+            
+            .option {
+                align-items: flex-start;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="organe-masini.html">Organe de Mașini</a></li>
+                    <li><a href="asamblari-mecanice.html">Asamblări Mecanice</a></li>
+                    <li><a href="lacatuserie-generala.html">Lăcătușerie Generală</a></li>
+                    <li><a href="masurari-tehnice.html">Măsurări Tehnice</a></li>
+                    <li><a href="evaluare.html">Evaluare</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Test Header -->
+    <section class="test-header">
+        <div class="container">
+            <h1 class="test-title">Evaluare: Măsurări Tehnice</h1>
+            <p class="test-description">Testează-ți cunoștințele dobândite despre procesul de măsurare, instrumente de măsură și metodologia măsurărilor tehnice.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <a href="evaluare.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Înapoi la lista de evaluări
+        </a>
+        
+        <!-- Test Info -->
+        <div class="test-info">
+            <h3>Informații despre test</h3>
+            <p><strong>Durata:</strong> 20 minute</p>
+            <p><strong>Număr de întrebări:</strong> 9</p>
+            <p><strong>Punctaj maxim:</strong> 90 puncte (10 puncte/întrebare)</p>
+            <p><strong>Punctaj de trecere:</strong> 50 puncte (55%)</p>
+            <p><strong>Instrucțiuni:</strong></p>
+            <ul>
+                <li>Citește cu atenție fiecare întrebare înainte de a răspunde</li>
+                <li>Alege un singur răspuns pentru fiecare întrebare</li>
+                <li>După completarea tuturor întrebărilor, apasă butonul "Finalizează testul"</li>
+                <li>Rezultatele și răspunsurile corecte vor fi afișate după finalizarea testului</li>
+            </ul>
+        </div>
+        
+        <!-- Test Form -->
+        <form id="test-form" class="test-form">
+            <!-- Întrebarea 1 -->
+            <div class="question" id="q1">
+                <h3>1. Care dintre următoarele definiții descrie cel mai bine procesul de măsurare?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q1a" name="q1" value="a">
+                        <label for="q1a">Un proces de calcul matematic utilizat pentru a determina valorile unei cantități</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1b" name="q1" value="b">
+                        <label for="q1b">Un proces experimental prin care se determină valoarea numerică a unei mărimi prin comparare cu o mărime de aceeași natură luată ca unitate de măsură</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1c" name="q1" value="c">
+                        <label for="q1c">O metodă de verificare a calității produselor finite</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q1d" name="q1" value="d">
+                        <label for="q1d">Un proces de calibrare a instrumentelor de măsură</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 2 -->
+            <div class="question" id="q2">
+                <h3>2. Ce proprietate caracterizează capacitatea unui instrument de măsură de a indica aceeași valoare pentru aceeași mărime măsurată în condiții identice?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q2a" name="q2" value="a">
+                        <label for="q2a">Precizia</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2b" name="q2" value="b">
+                        <label for="q2b">Exactitatea</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2c" name="q2" value="c">
+                        <label for="q2c">Repetabilitatea</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q2d" name="q2" value="d">
+                        <label for="q2d">Sensibilitatea</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 3 -->
+            <div class="question" id="q3">
+                <h3>3. Ce tip de eroare rezultă din influența mediului înconjurător (temperatură, umiditate, vibrații) asupra procesului de măsurare?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q3a" name="q3" value="a">
+                        <label for="q3a">Eroare sistematică</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3b" name="q3" value="b">
+                        <label for="q3b">Eroare aleatoare</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3c" name="q3" value="c">
+                        <label for="q3c">Eroare de metodă</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q3d" name="q3" value="d">
+                        <label for="q3d">Eroare relativă</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 4 -->
+            <div class="question" id="q4">
+                <h3>4. Cum se numește instrumentul utilizat pentru măsurarea diametrului exterior, diametrului interior și a adâncimilor?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q4a" name="q4" value="a">
+                        <label for="q4a">Micrometrul</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4b" name="q4" value="b">
+                        <label for="q4b">Șublerul</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4c" name="q4" value="c">
+                        <label for="q4c">Comparatorul</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q4d" name="q4" value="d">
+                        <label for="q4d">Raportorul</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 5 -->
+            <div class="question" id="q5">
+                <h3>5. Ce metodă de măsurare permite determinarea valorii unei mărimi prin comparație directă cu o mărime etalon?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q5a" name="q5" value="a">
+                        <label for="q5a">Metoda de măsurare directă</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5b" name="q5" value="b">
+                        <label for="q5b">Metoda de măsurare indirectă</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5c" name="q5" value="c">
+                        <label for="q5c">Metoda de măsurare prin substituție</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q5d" name="q5" value="d">
+                        <label for="q5d">Metoda de măsurare diferențială</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 6 -->
+            <div class="question" id="q6">
+                <h3>6. Care instrument de măsură este cel mai potrivit pentru verificarea planeității unei suprafețe?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q6a" name="q6" value="a">
+                        <label for="q6a">Nivela cu bulă de aer</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6b" name="q6" value="b">
+                        <label for="q6b">Riglă de control (dreptar)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6c" name="q6" value="c">
+                        <label for="q6c">Micrometrul</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q6d" name="q6" value="d">
+                        <label for="q6d">Echer</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 7 -->
+            <div class="question" id="q7">
+                <h3>7. Ce tip de instrument este indicat pentru măsurarea temperaturii foarte ridicate în procese industriale?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q7a" name="q7" value="a">
+                        <label for="q7a">Termometrul cu lichid</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7b" name="q7" value="b">
+                        <label for="q7b">Termometrul bimetal</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7c" name="q7" value="c">
+                        <label for="q7c">Termocuplul</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q7d" name="q7" value="d">
+                        <label for="q7d">Termograful</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 8 -->
+            <div class="question" id="q8">
+                <h3>8. Ce unitate de măsură este utilizată în Sistemul Internațional (SI) pentru măsurarea forței?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q8a" name="q8" value="a">
+                        <label for="q8a">Kilogramul (kg)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8b" name="q8" value="b">
+                        <label for="q8b">Joule (J)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8c" name="q8" value="c">
+                        <label for="q8c">Newton (N)</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q8d" name="q8" value="d">
+                        <label for="q8d">Pascal (Pa)</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Întrebarea 9 -->
+            <div class="question" id="q9">
+                <h3>9. Care dintre următorii factori poate influența precizia unei măsurători?</h3>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" id="q9a" name="q9" value="a">
+                        <label for="q9a">Doar calitatea instrumentului de măsură</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9b" name="q9" value="b">
+                        <label for="q9b">Doar experiența operatorului</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9c" name="q9" value="c">
+                        <label for="q9c">Doar condițiile de mediu</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" id="q9d" name="q9" value="d">
+                        <label for="q9d">Toate cele de mai sus: calitatea instrumentului, experiența operatorului și condițiile de mediu</label>
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit" class="submit-btn">Finalizează testul</button>
+        </form>
+        
+        <!-- Results (initially hidden) -->
+        <div id="results" class="results">
+            <h2>Rezultatele testului</h2>
+            
+            <div class="score">
+                Scorul tău:
+                <span id="score-value" class="score-value">0/90</span>
+                <span id="pass-status"></span>
+            </div>
+            
+            <div class="feedback">
+                <h3>Răspunsuri și explicații:</h3>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">1. Care dintre următoarele definiții descrie cel mai bine procesul de măsurare?</div>
+                    <div id="q1-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Un proces experimental prin care se determină valoarea numerică a unei mărimi prin comparare cu o mărime de aceeași natură luată ca unitate de măsură</div>
+                    <div class="feedback-explanation">Procesul de măsurare este esențialmente un proces experimental de comparare. Orice măsurare implică compararea unei mărimi fizice cu o unitate standard de aceeași natură. Prin acest proces se obține valoarea numerică a mărimii respective, exprimată în multiplii unității de măsură utilizate.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">2. Ce proprietate caracterizează capacitatea unui instrument de măsură de a indica aceeași valoare pentru aceeași mărime măsurată în condiții identice?</div>
+                    <div id="q2-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Repetabilitatea</div>
+                    <div class="feedback-explanation">Repetabilitatea reprezintă capacitatea unui instrument de măsură de a furniza indicații foarte apropiate în urma unor măsurări repetate ale aceleiași mărimi, efectuate în aceleași condiții (același operator, același instrument, același loc, aceleași condiții de utilizare și în intervale scurte de timp). Precizia se referă la gradul de concordanță între valorile măsurate, exactitatea la apropierea de valoarea reală, iar sensibilitatea la capacitatea de a detecta mici variații.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">3. Ce tip de eroare rezultă din influența mediului înconjurător (temperatură, umiditate, vibrații) asupra procesului de măsurare?</div>
+                    <div id="q3-status"></div>
+                    <div class="feedback-correct">Răspuns corect: A. Eroare sistematică</div>
+                    <div class="feedback-explanation">Erorile sistematice sunt erori care, în condiții de măsurare constante, rămân constante în mărime sau variază conform unei legi determinate. Influențele mediului înconjurător (temperatura, umiditatea, vibrațiile) produc de obicei erori sistematice, deoarece acestea afectează măsurătorile într-un mod previzibil și constant atât timp cât condițiile respective se mențin. Aceste erori pot fi corectate dacă influența lor este cunoscută.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">4. Cum se numește instrumentul utilizat pentru măsurarea diametrului exterior, diametrului interior și a adâncimilor?</div>
+                    <div id="q4-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Șublerul</div>
+                    <div class="feedback-explanation">Șublerul este un instrument universal de măsură care permite măsurarea dimensiunilor liniare: lungimi, diametre exterioare, diametre interioare și adâncimi. Este format dintr-o riglă gradată și un cursor care se deplasează de-a lungul acesteia. Are o precizie de 0,02 - 0,05 mm (pentru șublerele cu vernier) sau 0,01 mm (pentru șublerele digitale) și este unul dintre cele mai utilizate instrumente în măsurătorile tehnice datorită versatilității sale.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">5. Ce metodă de măsurare permite determinarea valorii unei mărimi prin comparație directă cu o mărime etalon?</div>
+                    <div id="q5-status"></div>
+                    <div class="feedback-correct">Răspuns corect: A. Metoda de măsurare directă</div>
+                    <div class="feedback-explanation">Metoda de măsurare directă presupune determinarea valorii unei mărimi prin comparație nemijlocită (directă) cu o mărime etalon de aceeași natură. Măsurătorile cu instrumente precum șublerul, micrometrul sau ruleta sunt exemple de măsurări directe. În schimb, metoda indirectă determină valoarea mărimii prin calcul, pe baza unor relații cunoscute cu alte mărimi măsurate direct, metoda prin substituție compară obiectul cu un etalon, iar metoda diferențială măsoară diferența față de o valoare de referință.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">6. Care instrument de măsură este cel mai potrivit pentru verificarea planeității unei suprafețe?</div>
+                    <div id="q6-status"></div>
+                    <div class="feedback-correct">Răspuns corect: B. Riglă de control (dreptar)</div>
+                    <div class="feedback-explanation">Rigla de control (dreptarul) este un instrument specializat pentru verificarea planeității suprafețelor. Este confecționată din oțel călit și are o muchie rectilinie foarte precisă care, așezată pe suprafața de verificat, permite observarea eventualelor abateri de la planeitate prin prezența spațiilor de lumină între riglă și suprafață. Nivela cu bulă de aer verifică orizontalitatea, echerul verifică perpendicularitatea, iar micrometrul măsoară dimensiuni liniare, nu planeitatea.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">7. Ce tip de instrument este indicat pentru măsurarea temperaturii foarte ridicate în procese industriale?</div>
+                    <div id="q7-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Termocuplul</div>
+                    <div class="feedback-explanation">Termocuplul este instrumentul cel mai potrivit pentru măsurarea temperaturilor foarte ridicate în aplicații industriale. Funcționează pe baza efectului termoelectric (efectul Seebeck) și poate măsura temperaturi de până la 1800°C (în funcție de tipul de termocuplu). Termocuplurile sunt robuste, au răspuns rapid și pot fi utilizate în medii agresive. Termometrele cu lichid sunt limitate la temperaturi mai joase, termometrele bimetal sunt de obicei limitate la aproximativ 500°C, iar termografele sunt instrumente de înregistrare, nu senzori de temperatură.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">8. Ce unitate de măsură este utilizată în Sistemul Internațional (SI) pentru măsurarea forței?</div>
+                    <div id="q8-status"></div>
+                    <div class="feedback-correct">Răspuns corect: C. Newton (N)</div>
+                    <div class="feedback-explanation">În Sistemul Internațional de Unități (SI), unitatea de măsură pentru forță este Newton-ul (simbol N). Un Newton reprezintă forța necesară pentru a accelera o masă de 1 kilogram cu 1 metru pe secundă la pătrat. Kilogramul (kg) este unitatea de măsură pentru masă, Joule (J) este unitatea pentru energie sau lucru mecanic, iar Pascal (Pa) este unitatea pentru presiune.</div>
+                </div>
+                
+                <div class="feedback-item">
+                    <div class="feedback-question">9. Care dintre următorii factori poate influența precizia unei măsurători?</div>
+                    <div id="q9-status"></div>
+                    <div class="feedback-correct">Răspuns corect: D. Toate cele de mai sus: calitatea instrumentului, experiența operatorului și condițiile de mediu</div>
+                    <div class="feedback-explanation">Precizia unei măsurători este influențată de o multitudine de factori, printre care se numără: calitatea și starea instrumentului de măsură (calibrare, uzură), experiența și abilitatea operatorului (tehnica de măsurare), precum și condițiile de mediu (temperatura, umiditatea, vibrațiile, luminozitatea). Toți acești factori acționează împreună și trebuie luați în considerare pentru a asigura măsurători precise și fiabile.</div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <button id="retry-btn" class="action-btn retry-btn">Încercă din nou</button>
+                <a href="evaluare.html" class="action-btn return-btn">Înapoi la evaluări</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const testForm = document.getElementById('test-form');
+            const resultsDiv = document.getElementById('results');
+            const scoreValue = document.getElementById('score-value');
+            const passStatus = document.getElementById('pass-status');
+            const retryBtn = document.getElementById('retry-btn');
+            
+            // Correct answers
+            const correctAnswers = {
+                'q1': 'b',
+                'q2': 'c',
+                'q3': 'a',
+                'q4': 'b',
+                'q5': 'a',
+                'q6': 'b',
+                'q7': 'c',
+                'q8': 'c',
+                'q9': 'd'
+            };
+            
+            // Form submission
+            testForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Calculate score
+                let score = 0;
+                for (let question in correctAnswers) {
+                    const selectedOption = document.querySelector(`input[name="${question}"]:checked`);
+                    const statusDiv = document.getElementById(`${question}-status`);
+                    
+                    if (selectedOption) {
+                        if (selectedOption.value === correctAnswers[question]) {
+                            score += 10;
+                            statusDiv.innerHTML = '<div class="feedback-correct">Ai răspuns corect!</div>';
+                        } else {
+                            statusDiv.innerHTML = `<div class="feedback-incorrect">Ai răspuns greșit. Ai selectat opțiunea ${selectedOption.value.toUpperCase()}.</div>`;
+                        }
+                    } else {
+                        statusDiv.innerHTML = '<div class="feedback-incorrect">Nu ai răspuns la această întrebare.</div>';
+                    }
+                }
+                
+                // Update score and status
+                scoreValue.textContent = `${score}/90`;
+                if (score >= 50) {
+                    passStatus.textContent = '(Felicitări! Ai trecut testul)';
+                    passStatus.style.color = 'var(--secondary)';
+                } else {
+                    passStatus.textContent = '(Ai picat testul. Încearcă din nou după o recapitulare)';
+                    passStatus.style.color = 'var(--danger)';
+                }
+                
+                // Show results
+                testForm.style.display = 'none';
+                resultsDiv.style.display = 'block';
+                
+                // Scroll to top of results
+                resultsDiv.scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // Retry button
+            retryBtn.addEventListener('click', function() {
+                // Reset form
+                testForm.reset();
+                
+                // Hide results and show form
+                resultsDiv.style.display = 'none';
+                testForm.style.display = 'block';
+                
+                // Scroll to top of form
+                testForm.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

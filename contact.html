@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Platformă Educațională</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .contact-header {
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .contact-form-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .info-title {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .info-item {
+            margin-bottom: 1.2rem;
+        }
+        
+        .info-label {
+            font-weight: bold;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        
+        .contact-form div {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        .map-section {
+            margin-bottom: 3rem;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-links {
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 0.5rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                flex-direction: column;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="index.html#courses">Cursuri</a></li>
+                    <li><a href="index.html#evaluation">Evaluare</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contact Header -->
+    <section class="contact-header">
+        <div class="container">
+            <h1 class="contact-title">Contactează-mă</h1>
+            <p class="contact-description">Ai întrebări despre cursuri? Nu ezita să mă contactezi! Sunt aici pentru a te ajuta să-ți îndeplinești obiectivele educaționale.</p>
+        </div>
+    </section>
+
+    <!-- Contact Content -->
+    <div class="container">
+        <div class="contact-content">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <h2 class="info-title">Informații de Contact</h2>
+                
+                <div class="info-item">
+                    <div class="info-label">👨‍🏫 Profesor</div>
+                    <div>Prof. Bîrsan Alexandru</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">✉️ Email</div>
+                    <div>alexandrubirsan19@yahoo.com</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">🏫 Instituție</div>
+                    <div>Centrul Școlar de Educatie Incluzivă Nr.1 Bacău</div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-label">🕒 Program de Lucru</div>
+                    <div>Luni - Vineri: 8:00 - 16:00</div>
+                </div>
+                
+                <div class="info-item">
+                    
+                   
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <h2 class="info-title">Trimite un Mesaj</h2>
+                <form class="contact-form" id="contactForm">
+                    <div>
+                        <label for="name">Nume Complet</label>
+                        <input type="text" id="name" name="name" placeholder="Numele tău" required>
+                    </div>
+                    
+                    <div>
+                        <label for="email">Adresa de Email</label>
+                        <input type="email" id="email" name="email" placeholder="email@exemplu.com" required>
+                    </div>
+                    
+                    <div>
+                        <label for="subject">Subiect</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subiectul mesajului" required>
+                    </div>
+                    
+                    <div>
+                        <label for="message">Mesajul Tău</label>
+                        <textarea id="message" name="message" placeholder="Scrie mesajul tău aici..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Trimite Mesajul</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        <!-- Map Section -->
+<div class="map-section">
+    <h2 class="info-title" style="text-align: center; margin-bottom: 1.5rem;">Locație</h2>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2724.103765023961!2d26.913738415614556!3d46.53432977912736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b571bc3e9d5eab%3A0x197151e4af1e9025!2sCentrul%20%C8%98colar%20de%20Educa%C8%9Bie%20Incluziv%C4%83%20Nr.%201!5e0!3m2!1sro!2sro!4v1647352738547!5m2!1sro!2sro" width="100%" height="100%" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Acasă</a>
+                <a href="index.html#courses">Cursuri</a>
+                <a href="index.html#evaluation">Evaluare</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission event handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Here you would normally send the form data to a server
+            // For demonstration purposes, we'll just show an alert
+            alert('Mulțumim pentru mesaj! Te vom contacta în curând.');
+            this.reset(); // Clear the form
+        });
+    </script>
+</body>
+</html>

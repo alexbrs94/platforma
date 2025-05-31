@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluare - Platformă Educațională</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            
+            /* Culori pentru butoanele de evaluare */
+            --asamblari-color: #3b82f6;
+            --lacatuserie-color: #059669;
+            --masurari-color: #ca8a04;
+            --organe-color: #8b5cf6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .eval-header {
+            background: linear-gradient(to right, var(--dark), var(--accent));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .eval-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,50 L80,50 M50,20 L50,80" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .eval-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .eval-description {
+            font-size: 1.3rem;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn svg {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+        }
+        
+        .eval-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .eval-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .eval-intro h2 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .eval-intro p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+        
+        .eval-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            width: 100%;
+            max-width: 900px;
+        }
+        
+        .eval-option {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 300px;
+        }
+        
+        .eval-option:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .eval-option-header {
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .eval-option-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .eval-option-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .eval-option-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        
+        .eval-option-action {
+            margin-top: auto;
+        }
+        
+        .eval-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .eval-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .eval-btn svg {
+            margin-right: 10px;
+        }
+        
+        /* Culori specifice pentru fiecare modul */
+        .asamblari-header {
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
+        }
+        
+        .lacatuserie-header {
+            background: linear-gradient(135deg, #065f46, #059669);
+        }
+        
+        .masurari-header {
+            background: linear-gradient(135deg, #854d0e, #ca8a04);
+        }
+        
+        .organe-header {
+            background: linear-gradient(135deg, #5b21b6, #8b5cf6);
+        }
+        
+        .asamblari-btn {
+            background-color: var(--asamblari-color);
+        }
+        
+        .asamblari-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .lacatuserie-btn {
+            background-color: var(--lacatuserie-color);
+        }
+        
+        .lacatuserie-btn:hover {
+            background-color: #10b981;
+        }
+        
+        .masurari-btn {
+            background-color: var(--masurari-color);
+        }
+        
+        .masurari-btn:hover {
+            background-color: #eab308;
+        }
+        
+        .organe-btn {
+            background-color: var(--organe-color);
+        }
+        
+        .organe-btn:hover {
+            background-color: #7c3aed;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .eval-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .eval-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="organe-masini.html">Organe de Mașini</a></li>
+                    <li><a href="asamblari-mecanice.html">Asamblări Mecanice</a></li>
+                    <li><a href="lacatuserie-generala.html">Lăcătușerie Generală</a></li>
+                    <li><a href="masurari-tehnice.html">Măsurări Tehnice</a></li>
+                    <li><a href="evaluare.html">Evaluare</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Evaluation Header -->
+    <section class="eval-header">
+        <div class="container">
+            <h1 class="eval-title">Evaluare Cunoștințe</h1>
+            <p class="eval-description">Testează-ți cunoștințele dobândite la cursurile de Profil Mecanic prin quiz-uri interactive.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <a href="index.html" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Înapoi la pagina principală
+        </a>
+        
+        <div class="eval-content">
+            <div class="eval-intro">
+                <h2>Selectează Domeniul pentru Evaluare</h2>
+                <p>Alege unul dintre modulele de mai jos pentru a începe un test de evaluare. Fiecare test conține întrebări cu variante multiple de răspuns pentru a verifica înțelegerea conceptelor fundamentale din domeniul respectiv.</p>
+            </div>
+            
+            <div class="eval-options">
+                <!-- Evaluare Asamblări Mecanice -->
+                <div class="eval-option">
+                    <div class="eval-option-header asamblari-header">
+                        <h3>Asamblări Mecanice</h3>
+                        <p>Testează cunoștințele despre îmbinări demontabile și nedemontabile</p>
+                    </div>
+                    <div class="eval-option-content">
+                        <p>Acest test evaluează cunoștințele despre tipurile de asamblări mecanice, tehnicile de realizare și aplicațiile specifice pentru îmbinări permanente și demontabile.</p>
+                        <div class="eval-option-action">
+                            <button class="eval-btn asamblari-btn" onclick="window.location.href='evaluare-asamblari.html'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Începe Testul
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Evaluare Lăcătușerie Generală -->
+                <div class="eval-option">
+                    <div class="eval-option-header lacatuserie-header">
+                        <h3>Lăcătușerie Generală</h3>
+                        <p>Verifică cunoștințele despre operații de lăcătușerie</p>
+                    </div>
+                    <div class="eval-option-content">
+                        <p>Acest test evaluează cunoștințele despre operațiile de pregătire și prelucrare specifice lăcătușeriei, tehnicile de realizare și aplicațiile practice ale acestora.</p>
+                        <div class="eval-option-action">
+                            <button class="eval-btn lacatuserie-btn" onclick="window.location.href='evaluare-lacatuserie.html'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Începe Testul
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Evaluare Măsurări Tehnice -->
+                <div class="eval-option">
+                    <div class="eval-option-header masurari-header">
+                        <h3>Măsurări Tehnice</h3>
+                        <p>Evaluează cunoștințele despre măsurarea mărimilor fizice</p>
+                    </div>
+                    <div class="eval-option-content">
+                        <p>Acest test verifică înțelegerea conceptelor fundamentale despre procesul de măsurare și metodele de măsurare a mărimilor fizice precum lungimi, unghiuri, forțe, temperatură și viteză.</p>
+                        <div class="eval-option-action">
+                            <button class="eval-btn masurari-btn" onclick="window.location.href='evaluare-masurari.html'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Începe Testul
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Evaluare Organe de Mașini -->
+                <div class="eval-option">
+                    <div class="eval-option-header organe-header">
+                        <h3>Organe de Mașini</h3>
+                        <p>Testează cunoștințele despre organe de mașini și transmisii</p>
+                    </div>
+                    <div class="eval-option-content">
+                        <p>Acest test evaluează cunoștințele despre componentele mecanice de bază și transmisiile mecanice utilizate în construcția mașinilor și utilajelor industriale.</p>
+                        <div class="eval-option-action">
+                            <button class="eval-btn organe-btn" onclick="window.location.href='evaluare-organe.html'">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Începe Testul
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+</body>
+</html>

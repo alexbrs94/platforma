@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Măsurări Tehnice - Platformă Educațională</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2ecc71;
+            --accent: #9b59b6;
+            --dark: #34495e;
+            --light: #ecf0f1;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            
+            /* Culori noi pentru măsurări tehnice */
+            --procese-primary: #0e7490;
+            --procese-secondary: #06b6d4;
+            --procese-accent: #67e8f9;
+            --marimi-primary: #854d0e;
+            --marimi-secondary: #ca8a04;
+            --marimi-accent: #facc15;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--dark);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo svg {
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .course-header {
+            background: linear-gradient(135deg, var(--procese-primary), var(--marimi-primary));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M20,50 L80,50 M50,20 L50,80" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+
+        .course-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .course-description {
+            font-size: 1.3rem;
+            max-width: 800px;
+            position: relative;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            background-color: var(--dark);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-btn svg {
+            margin-right: 8px;
+        }
+        
+        .back-btn:hover {
+            background-color: #2c3e50;
+            transform: translateY(-2px);
+        }
+        
+        .course-modules {
+            margin-bottom: 3rem;
+        }
+        
+        .module-heading {
+            font-size: 1.8rem;
+            color: white;
+            padding: 1.5rem;
+            margin: 2.5rem 0 1.5rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .module-heading::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="2" fill="rgba(255,255,255,0.2)"/></svg>');
+            background-size: 20px 20px;
+            opacity: 0.3;
+        }
+        
+        .module-heading svg {
+            margin-right: 15px;
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+        
+        .module-heading.first-module {
+            background: linear-gradient(to right, var(--procese-primary), var(--procese-secondary));
+        }
+        
+        .module-heading.second-module {
+            background: linear-gradient(to right, var(--marimi-primary), var(--marimi-secondary));
+        }
+        
+        .module-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+            color: #444;
+        }
+        
+        .topic-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .topic-card {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .topic-header {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        
+        .topic-header.first-module {
+            background: linear-gradient(120deg, var(--procese-primary), var(--procese-secondary));
+        }
+        
+        .topic-header.second-module {
+            background: linear-gradient(120deg, var(--marimi-primary), var(--marimi-secondary));
+        }
+        
+        .topic-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-right: 15px;
+            line-height: 1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .topic-header h3 {
+            font-size: 1.3rem;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .topic-image {
+            overflow: hidden;
+            height: 200px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .topic-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .topic-card:hover .topic-image img {
+            transform: scale(1.05);
+        }
+        
+        .topic-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .topic-content p {
+            color: #555;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+        
+        .topic-actions {
+            margin-top: auto;
+        }
+        
+        .topic-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
+        }
+        
+        .topic-btn svg {
+            margin-right: 10px;
+        }
+        
+        .topic-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .topic-btn.view-btn.first-module {
+            background-color: var(--procese-secondary);
+        }
+        
+        .topic-btn.view-btn.first-module:hover {
+            background-color: #22d3ee;
+        }
+        
+        .topic-btn.view-btn.second-module {
+            background-color: var(--marimi-secondary);
+        }
+        
+        .topic-btn.view-btn.second-module:hover {
+            background-color: #eab308;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .topic-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-title {
+                font-size: 2.2rem;
+            }
+            
+            .module-heading {
+                font-size: 1.5rem;
+            }
+            
+            .topic-header h3 {
+                font-size: 1.1rem;
+            }
+            
+            .topic-image {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="index.html" class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 3L20 7.5V16.5L12 21L4 16.5V7.5L12 3Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 3V10.5M12 21V10.5M12 10.5L20 7.5M12 10.5L4 7.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    EduTech
+                </a>
+                <ul class="nav-links">
+                    <li><a href="index.html">Acasă</a></li>
+                    <li><a href="organe-masini.html">Organe de Mașini</a></li>
+                    <li><a href="asamblari-mecanice.html">Asamblări Mecanice</a></li>
+                    <li><a href="lacatuserie-generala.html">Lăcătușerie Generală</a></li>
+                    <li><a href="masurari-tehnice.html">Măsurări Tehnice</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Course Header -->
+    <section class="course-header">
+        <div class="container">
+            <h1 class="course-title">Măsurări Tehnice</h1>
+            <p class="course-description">Tehnici și instrumente pentru măsurarea și controlul dimensional al pieselor și subansamblelor.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <a href="index.html#courses" class="back-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 12H5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 19L5 12L12 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Înapoi la lista de cursuri
+        </a>
+        
+        <div class="course-modules">
+            <!-- Modulul I: Procesul de Măsurare -->
+            <h2 class="module-heading first-module">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.2739 14.3667C20.2739 14.3667 19.0439 18.3567 14.8239 18.3567C10.6039 18.3567 9.8339 14.3667 9.8339 14.3667" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9.8339 14.7074V9.06738C9.8339 9.06738 9.8339 6.75738 8.1439 6.75738H6.6239" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.98366 2.87695L10.2237 5.60695" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5.98389 8.33691L10.2239 5.60791" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M21.7241 2.95703L21.7241 21.0371" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20.2739 14.7074V5.94738C20.2739 5.94738 20.2739 3.63738 18.5839 3.63738H17.0639" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                I. Procesul de Măsurare
+            </h2>
+            <p class="module-description">În acest modul veți studia fundamentele teoretice și practice ale măsurării, principiile și metodele utilizate în măsurările tehnice, precum și etapele procesului de măsurare corectă a mărimilor fizice.</p>
+            
+            <div class="topic-list">
+                <!-- Procesul de Măsurare -->
+                <div class="topic-card">
+                    <div class="topic-header first-module">
+                        <div class="topic-number">1</div>
+                        <h3>Procesul de Măsurare</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/procesul-de-masurare.jpg" alt="Procesul de măsurare" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Studiază conceptele fundamentale ale procesului de măsurare, etapele și metodele utilizate în măsurări tehnice. Vei învăța despre erorile de măsurare, interpretarea rezultatelor, unitățile de măsură și sistemele etalon folosite în industrie.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/procesul-de-masurare.pdf" class="topic-btn view-btn first-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modulul II: Măsurarea Mărimilor Fizice -->
+            <h2 class="module-heading second-module">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.5 3.5L18 2L16.5 3.5L15 2L13.5 3.5L12 2L10.5 3.5L9 2L7.5 3.5L6 2L4.5 3.5L3 2V22L4.5 20.5L6 22L7.5 20.5L9 22L10.5 20.5L12 22L13.5 20.5L15 22L16.5 20.5L18 22L19.5 20.5L21 22V2L19.5 3.5Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 7H17M7 12H17M7 17H17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                II. Măsurarea Mărimilor Fizice
+            </h2>
+            <p class="module-description">În acest modul veți studia metodele și instrumentele utilizate pentru măsurarea diferitelor mărimi fizice esențiale în ingineria mecanică. Veți învăța despre tehnicile de măsurare, instrumentele specifice și interpretarea rezultatelor pentru diverse mărimi fizice.</p>
+            
+            <div class="topic-list">
+                <!-- Tema 1: Măsurarea Lungimilor -->
+                <div class="topic-card">
+                    <div class="topic-header second-module">
+                        <div class="topic-number">1</div>
+                        <h3>Măsurarea Lungimilor</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/masurarea-lungimilor.jpg" alt="Instrumente de măsurat lungimi" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Studiază instrumentele și metodele de măsurare a lungimilor, de la șublere și micrometre până la instrumente și mașini de măsurat moderne. Vei învăța despre principiile măsurării dimensionale, calibrarea instrumentelor și tehnicile corecte de utilizare.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/masurarea-lungimilor.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 2: Măsurarea Unghiurilor -->
+                <div class="topic-card">
+                    <div class="topic-header second-module">
+                        <div class="topic-number">2</div>
+                        <h3>Măsurarea Unghiurilor</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/masurarea-unghiurilor.jpg" alt="Instrumente de măsurat unghiuri" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Descoperă tehnicile și instrumentele utilizate pentru măsurarea unghiurilor și a suprafețelor înclinate. Vei învăța despre raportoare, goniometre, nivele și alte instrumente specifice, precum și despre metodele de verificare a perpendicularității și paralelismului.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/masurarea-unghiurilor.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 3: Măsurarea Forțelor -->
+                <div class="topic-card">
+                    <div class="topic-header second-module">
+                        <div class="topic-number">3</div>
+                        <h3>Măsurarea Forțelor</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/masurarea-fortelor.jpg" alt="Instrumente de măsurat forțe" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Învață despre principiile și instrumentele utilizate în măsurarea forțelor mecanice. Vei studia dinamometre, celule de sarcină, traductoare de forță și echipamente specializate pentru măsurarea forțelor statice și dinamice în diferite aplicații industriale.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/masurarea-fortelor.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 4: Măsurarea Temperaturii -->
+                <div class="topic-card">
+                    <div class="topic-header second-module">
+                        <div class="topic-number">4</div>
+                        <h3>Măsurarea Temperaturii</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/masurarea-temperaturii.jpg" alt="Instrumente de măsurat temperatura" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Studiază metodele și instrumentele utilizate pentru măsurarea temperaturii în aplicații industriale. Vei învăța despre termometre, termocuple, termistoare, pirometre și alte dispozitive specializate pentru determinarea precisă a temperaturii în diverse medii și procese.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/masurarea-temperaturii.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tema 5: Măsurarea Vitezei -->
+                <div class="topic-card">
+                    <div class="topic-header second-module">
+                        <div class="topic-number">5</div>
+                        <h3>Măsurarea Vitezei</h3>
+                    </div>
+                    <div class="topic-image">
+                        <img src="images/masurari-tehnice/masurarea-vitezei.jpg" alt="Instrumente de măsurat viteza" loading="lazy">
+                    </div>
+                    <div class="topic-content">
+                        <p>Descoperă metodele și instrumentele utilizate pentru măsurarea vitezei de deplasare liniară și a vitezei unghiulare. Vei studia tahometre, encodere, senzori de viteză și sisteme moderne de măsurare a vitezei în aplicații industriale și procese tehnologice.</p>
+                        <div class="topic-actions">
+                            <a href="cursuri/masurari-tehnice/masurarea-vitezei.pdf" class="topic-btn view-btn second-module">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                Accesează cursul
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EduTech - Platformă Educațională pentru Profil Mecanic</p>
+        </div>
+    </footer>
+</body>
+</html>
